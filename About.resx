@@ -326,7 +326,7 @@ Customize the application's assembly information in the Application pane of Proj
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA1oAAAONCAIAAAAQ+4ZeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4y+7wDtgAA/45JREFUeF6M/Qdz
+        wAAADsABataJCQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4y+7wDtgAA/45JREFUeF6M/Qdz
         JEmWoAn2b7o7kbsb2bmd3dnenq5mVd3VxbI4zyySlVWZVcl5ZlAEOAsEWIDDwZmDOQCHc87hABycBICI
         QDAEZ3rf0wegs/tmZ87liYqamjJXM3v62VNif9XQ47w6OFXTNljbPtLYM9HgGG0dmmobnia8rnMEF6nv
         5tRYx8gcgqdlfKZxfKZ+aBppdXkuD46rXwMbRl2O+XC/N9zpCnS6fPUD46XtA7VDTs62u7w2MNDinL86
