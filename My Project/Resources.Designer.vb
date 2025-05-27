@@ -62,12 +62,12 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to @echo off
-        '''setlocal
+        '''Rem setlocal
         '''rem Setting the &apos;boot&apos; keyword or a drive letter as arg2 sets both sdi and wim to use the device.
         '''rem Setting the &apos;boot&apos; keyword as args3-5 overrides the .sdi device to use the boot device and default paths, the .wim device stays as arg2
         '''rem defaults              boot              \boot\boot.wim   \boot\boot.sdi
         '''rem args:       |ID*     |WimSdi-Partition  |WimPath         |SdiPath     |OverrideSdiPartitionToUSE_boot|Store path
-        '''rem                                                      [rest of string was truncated]&quot;;.
+        '''rem                                                  [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property CreateBootEntry() As String
             Get
@@ -77,16 +77,15 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to @echo off
-        '''setlocal
         '''bcdboot %1\Windows /d /addlast
         '''if %ERRORLEVEL% GTR 0 (
         '''  echo Create Boot Files ERROR.
-        '''  endlocal
-        '''  EXIT /b 14
+        '''  goto end
         ''')
         '''echo Created Boot Files Successfully
-        '''endlocal
-        '''EXIT /b 0.
+        ''':end
+        '''timeout /t 1
+        '''exit.
         '''</summary>
         Friend ReadOnly Property CreateBootOption() As String
             Get
@@ -96,16 +95,14 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to @echo off
-        '''setlocal
         '''bcdboot C:\Windows /s %1
         '''if %ERRORLEVEL% GTR 0 (
         '''  echo Create Boot Files ERROR.
-        '''  endlocal
-        '''  EXIT /b 14
+        '''  goto end
         ''')
-        '''echo Created Boot Files Successfully
-        '''endlocal
-        '''EXIT /b 0.
+        ''':end
+        '''timeout /t 1
+        '''exit.
         '''</summary>
         Friend ReadOnly Property CreateBootOptionTwo() As String
             Get
@@ -115,7 +112,7 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to @echo off
-        '''setlocal
+        '''Rem setlocal
         '''REM if only drive letter provided creates boot sector and marks active
         '''REM usage:call CreateNewSystemBootDevice.bat DRIVE_LETTER
         '''if [%1]==[] EXIT /b 1
@@ -129,10 +126,10 @@ Namespace My.Resources
         '''if %ERRORLEVEL% GTR 0 (
         '''  echo SET ACTIVE ERROR.
         '''  del /q &quot;%TEMP%\vm.s&quot;
-        '''  EXIT /b 11
+        '''  goto end
         ''')
         '''del /q &quot;%TEMP%\vm.s&quot;
-        '''bootsect /nt60 %USB_DriveLetter% [rest of string was truncated]&quot;;.
+        '''bootsect /nt60 %USB_DriveLette [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property CreateNewSystemBootDevice() As String
             Get
@@ -142,19 +139,18 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to @echo off
-        '''setlocal
+        '''Rem setlocal
         '''REM if only drive letter provided creates boot sector and marks active
         '''REM usage:call CreateUSB.bat DRIVE: install.wim-file(optional) install-image-index(optional-default 1)
         '''if [%1]==[] EXIT /b 1
         '''set RESULT=0
-        '''echo Setting Up
         '''set &quot;USB_DriveLetter=%~1&quot;
-        '''if [%2]==[justboot] goto CREATEBOOT
+        '''if [%~2]==[justboot] goto CREATEBOOT
         '''set INDEX=1
         '''if NOT [%2]==[] if NOT [%2]==[True] if NOT [%2]==[False] SET &quot;IMAGEFILE=%~2&quot;
         '''if NOT [%3]==[] if NOT [%3]==[True] if NOT [%3]==[False] SET INDEX=%~3
-        '''
-        '''echo SELECT VOLUME=%USB_DriveLet [rest of string was truncated]&quot;;.
+        '''if NOT [%5]==[] if [%5]==[true] goto INSTALL
+        ''' [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property CreateUSB() As String
             Get

@@ -92,4 +92,29 @@ Public Class RepairDialog
             LinkLabel1.Enabled = True
         End If
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Button1.Enabled = False
+        Form1.currentCmd = DomainUpDown1.Text
+        If Not Form1.RunTheCmd() Then
+            Form1.LastCmd.Text = "Operation Cancelled"
+            Button1.Enabled = True
+        End If
+    End Sub
+
+    Private Sub UnLocked_Btn_Click(sender As Object, e As EventArgs) Handles UnLocked_Btn.Click
+        DomainUpDown1.ReadOnly = True
+        Locked_Btn.Enabled = True
+        Locked_Btn.Visible = True
+        UnLocked_Btn.Enabled = False
+        UnLocked_Btn.Visible = False
+    End Sub
+
+    Private Sub Locked_Btn_Click(sender As Object, e As EventArgs) Handles Locked_Btn.Click
+        DomainUpDown1.ReadOnly = False
+        Locked_Btn.Enabled = False
+        Locked_Btn.Visible = False
+        UnLocked_Btn.Enabled = True
+        UnLocked_Btn.Visible = True
+    End Sub
 End Class

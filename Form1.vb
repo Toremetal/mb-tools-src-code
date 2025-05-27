@@ -20,7 +20,7 @@ Imports System.Reflection
 
 Public Class Form1
     'My.Application.Info.Version.Major + My.Application.Info.Version.Minor + My.Application.Info.Version.Build + My.Application.Info.Version.Revision
-    Public Shared AppRev As Integer = 6
+    Public Shared AppRev As Integer = 7
     Public Shared App_Version As String = Application.ProductVersion + "." + AppRev.ToString() ' + "2025.4.2.4"
     Dim Old_Version As String = Application.ProductVersion + "." + (AppRev - 1).ToString() '"2025.4.2.4" 'Application.ProductVersion
     Dim isElevated As Boolean = My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator)
