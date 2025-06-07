@@ -20,7 +20,7 @@ Imports System.Reflection
 
 Public Class Form1
     'My.Application.Info.Version.Major + My.Application.Info.Version.Minor + My.Application.Info.Version.Build + My.Application.Info.Version.Revision
-    Public Shared AppRev As Integer = 7
+    Public Shared AppRev As Integer = 8
     Public Shared App_Version As String = Application.ProductVersion + "." + AppRev.ToString() ' + "2025.4.2.4"
     Dim Old_Version As String = Application.ProductVersion + "." + (AppRev - 1).ToString() '"2025.4.2.4" 'Application.ProductVersion
     Dim isElevated As Boolean = My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator)
@@ -1027,6 +1027,7 @@ Public Class Form1
         CheckForUpdatesToolStripMenuItem.Enabled = False
         'MsgBox(My.Computer.Network.Ping("1.1.1.1").ToString(), MsgBoxStyle.Exclamation, Me.Text)
         CheckUpdate(True)
+        'Process.Start(App_Path + "MB-Tools.application")
         CheckForUpdatesToolStripMenuItem.Enabled = True
     End Sub
     Function CheckUpdate(Optional ByVal showMsg = False)

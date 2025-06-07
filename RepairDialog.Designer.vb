@@ -37,13 +37,13 @@ Partial Class RepairDialog
         Me.Reset_Base = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.UnLocked_Btn = New System.Windows.Forms.Button()
+        Me.Locked_Btn = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.UnLocked_Btn = New System.Windows.Forms.Button()
-        Me.Locked_Btn = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -212,6 +212,34 @@ Partial Class RepairDialog
         Me.ToolTip1.SetToolTip(Me.Button2, "Run the Selected Command")
         Me.Button2.UseVisualStyleBackColor = False
         '
+        'UnLocked_Btn
+        '
+        Me.UnLocked_Btn.BackgroundImage = CType(resources.GetObject("UnLocked_Btn.BackgroundImage"), System.Drawing.Image)
+        Me.UnLocked_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.UnLocked_Btn.Enabled = False
+        Me.UnLocked_Btn.FlatAppearance.BorderSize = 0
+        Me.UnLocked_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.UnLocked_Btn.Location = New System.Drawing.Point(6, 76)
+        Me.UnLocked_Btn.Name = "UnLocked_Btn"
+        Me.UnLocked_Btn.Size = New System.Drawing.Size(19, 21)
+        Me.UnLocked_Btn.TabIndex = 58
+        Me.ToolTip1.SetToolTip(Me.UnLocked_Btn, "Lock to prevent unintentional edits to the command")
+        Me.UnLocked_Btn.UseVisualStyleBackColor = True
+        Me.UnLocked_Btn.Visible = False
+        '
+        'Locked_Btn
+        '
+        Me.Locked_Btn.BackgroundImage = CType(resources.GetObject("Locked_Btn.BackgroundImage"), System.Drawing.Image)
+        Me.Locked_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Locked_Btn.FlatAppearance.BorderSize = 0
+        Me.Locked_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Locked_Btn.Location = New System.Drawing.Point(6, 76)
+        Me.Locked_Btn.Name = "Locked_Btn"
+        Me.Locked_Btn.Size = New System.Drawing.Size(19, 21)
+        Me.Locked_Btn.TabIndex = 59
+        Me.ToolTip1.SetToolTip(Me.Locked_Btn, "Un-Lock to edit the command")
+        Me.Locked_Btn.UseVisualStyleBackColor = True
+        '
         'Label4
         '
         Me.Label4.Dock = System.Windows.Forms.DockStyle.Top
@@ -235,12 +263,15 @@ Partial Class RepairDialog
         Me.DomainUpDown1.Items.Add("start ""Local Users and Groups"" lusrmgr.msc")
         Me.DomainUpDown1.Items.Add("start ""Local Security Policy"" secpol.msc")
         Me.DomainUpDown1.Items.Add("start ""User Accounts"" netplwiz.exe")
-        Me.DomainUpDown1.Items.Add("start ""Check Disk -Scan"" chkdsk C: /scan & pause")
-        Me.DomainUpDown1.Items.Add("start ""Check Disk -Repair"" chkdsk C: /f /r & pause")
-        Me.DomainUpDown1.Items.Add("start ""Restore System Health"" dism.exe /online /cleanup-image /restorehealth & pa" &
-        "use")
-        Me.DomainUpDown1.Items.Add("start ""System File Repair"" sfc /scannow & pause")
-        Me.DomainUpDown1.Items.Add("start ""System File Repair"" sfc /verifyonly & pause")
+        Me.DomainUpDown1.Items.Add("start ""Check Disk -Scan"" /B chkdsk C: /scan>""%USERPROFILE%\desktop\chkdsk-report." &
+        "txt""")
+        Me.DomainUpDown1.Items.Add("start ""Check Disk -Repair"" chkdsk C: /f /r")
+        Me.DomainUpDown1.Items.Add("start ""Restore System Health"" /B dism.exe /online /cleanup-image /restorehealth>""" &
+        "%USERPROFILE%\desktop\dism-report.txt""")
+        Me.DomainUpDown1.Items.Add("start ""System File Repair"" /B sfc /scannow>""%USERPROFILE%\desktop\sfc-report.txt""" &
+        "")
+        Me.DomainUpDown1.Items.Add("start ""System File Repair"" /B sfc /verifyonly>""%USERPROFILE%\desktop\sfc-report.t" &
+        "xt""")
         Me.DomainUpDown1.Location = New System.Drawing.Point(3, 103)
         Me.DomainUpDown1.Name = "DomainUpDown1"
         Me.DomainUpDown1.ReadOnly = True
@@ -285,34 +316,6 @@ Partial Class RepairDialog
         Me.GroupBox5.TabIndex = 51
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Image Mount Tools"
-        '
-        'UnLocked_Btn
-        '
-        Me.UnLocked_Btn.BackgroundImage = CType(resources.GetObject("UnLocked_Btn.BackgroundImage"), System.Drawing.Image)
-        Me.UnLocked_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.UnLocked_Btn.Enabled = False
-        Me.UnLocked_Btn.FlatAppearance.BorderSize = 0
-        Me.UnLocked_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UnLocked_Btn.Location = New System.Drawing.Point(6, 76)
-        Me.UnLocked_Btn.Name = "UnLocked_Btn"
-        Me.UnLocked_Btn.Size = New System.Drawing.Size(19, 21)
-        Me.UnLocked_Btn.TabIndex = 58
-        Me.ToolTip1.SetToolTip(Me.UnLocked_Btn, "Lock to prevent unintentional edits to the command")
-        Me.UnLocked_Btn.UseVisualStyleBackColor = True
-        Me.UnLocked_Btn.Visible = False
-        '
-        'Locked_Btn
-        '
-        Me.Locked_Btn.BackgroundImage = CType(resources.GetObject("Locked_Btn.BackgroundImage"), System.Drawing.Image)
-        Me.Locked_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Locked_Btn.FlatAppearance.BorderSize = 0
-        Me.Locked_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Locked_Btn.Location = New System.Drawing.Point(6, 76)
-        Me.Locked_Btn.Name = "Locked_Btn"
-        Me.Locked_Btn.Size = New System.Drawing.Size(19, 21)
-        Me.Locked_Btn.TabIndex = 59
-        Me.ToolTip1.SetToolTip(Me.Locked_Btn, "Un-Lock to edit the command")
-        Me.Locked_Btn.UseVisualStyleBackColor = True
         '
         'RepairDialog
         '

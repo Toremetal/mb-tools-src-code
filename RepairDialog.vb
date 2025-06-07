@@ -16,6 +16,7 @@
 '    along with this program.  If Not, see <https://www.gnu.org/licenses/>.
 '==========================================================================
 Imports MB_Tools.Form1
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class RepairDialog
 
@@ -42,13 +43,12 @@ Public Class RepairDialog
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        '/Cleanup-Image /AnalyzeComponentStore
-        Button1.Enabled = False '/Cleanup-Image /StartComponentCleanup /ResetBase
-        Dim OnlineSys = ""
-        Dim ResetBase = ""
+        Button1.Enabled = False
+        Dim ResetBase As String = ""
         If Reset_Base.Checked Then
             ResetBase = " /ResetBase"
         End If
+        Dim OnlineSys As String
         If CheckBox2.Checked Then
             CheckBox2.Text = "Running System"
             OnlineSys = " /online"
@@ -56,7 +56,7 @@ Public Class RepairDialog
             OnlineSys = " /image:" + Form1.MountFolder.Text
             CheckBox2.Text = "..." + Form1.MountFolder.Text.Substring(-5, Form1.MountFolder.Text.Length)
         End If
-        Form1.currentCmd = "Dism.exe" + OnlineSys + " /Cleanup-Image  /StartComponentCleanup" + ResetBase
+        Form1.currentCmd = "Dism.exe" + OnlineSys + " /Cleanup-Image /StartComponentCleanup" + ResetBase
         If Not Form1.RunTheCmd() Then
             Form1.LastCmd.Text = "Operation Cancelled"
             Button1.Enabled = True
@@ -81,6 +81,55 @@ Public Class RepairDialog
                 CheckBox2.Checked = True
                 CheckBox2.Enabled = False
             End If
+        End If
+        If FileIO.FileSystem.FileExists("cmd-list.txt") Then
+            DomainUpDown1.Items.Clear()
+            Dim tFile As IO.StreamReader = FileIO.FileSystem.OpenTextFileReader(SpecialDirectories.MyDocuments + "\mb-tools\cmd-list.txt")
+            Do Until (tFile.EndOfStream())
+                DomainUpDown1.Items.Add(tFile.ReadLine())
+            Loop
+            Try
+                DomainUpDown1.SelectedIndex = 0
+            Catch ex As Exception
+
+            End Try
+        ElseIf FileIO.FileSystem.FileExists(SpecialDirectories.MyDocuments + "\mb-tools\cmd-list.txt") Then
+            DomainUpDown1.Items.Clear()
+            Dim tFile As IO.StreamReader = FileIO.FileSystem.OpenTextFileReader(SpecialDirectories.MyDocuments + "\mb-tools\cmd-list.txt")
+            Do Until (tFile.EndOfStream())
+                DomainUpDown1.Items.Add(tFile.ReadLine())
+            Loop
+            Try
+                DomainUpDown1.SelectedIndex = 0
+            Catch ex As Exception
+
+            End Try
+        Else
+            If Not FileIO.FileSystem.DirectoryExists(SpecialDirectories.MyDocuments + "\mb-tools") Then
+                Try
+                    FileIO.FileSystem.CreateDirectory(SpecialDirectories.MyDocuments + "\mb-tools")
+                Catch ex As Exception
+
+                End Try
+            End If
+            Try
+                FileIO.FileSystem.WriteAllText(SpecialDirectories.MyDocuments + "\mb-tools\cmd-list.txt", "start " + Chr(34) + "Computer Management" + Chr(34) + " compmgmt.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "Device Manager" + Chr(34) + " devmgmt.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "Disk Manager" + Chr(34) + " diskmgmt.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "Disk Cleanup" + Chr(34) + " cleanmgr.exe" + Environment.NewLine +
+                            "start " + Chr(34) + "Disk Defrag" + Chr(34) + " dfrgui.exe" + Environment.NewLine +
+                            "start " + Chr(34) + "Group Policy" + Chr(34) + " gpedit.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "Local Users and Groups" + Chr(34) + " lusrmgr.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "Local Security Policy" + Chr(34) + " secpol.msc" + Environment.NewLine +
+                            "start " + Chr(34) + "User Accounts" + Chr(34) + " netplwiz.exe" + Environment.NewLine +
+                            "start " + Chr(34) + "Check Disk -Scan" + Chr(34) + " /B chkdsk C: /scan>" + Chr(34) + "%USERPROFILE%\desktop\chkdsk-report.txt" + Chr(34) + Environment.NewLine +
+                            "start " + Chr(34) + "Check Disk -Repair" + Chr(34) + " chkdsk C: /f /r" + Environment.NewLine +
+                            "start " + Chr(34) + "Restore System Health" + Chr(34) + " /B dism.exe /online /cleanup-image /restorehealth>" + Chr(34) + "%USERPROFILE%\desktop\dism-report.txt" + Chr(34) + Environment.NewLine +
+                            "start " + Chr(34) + "System File Repair" + Chr(34) + " /B sfc /scannow>" + Chr(34) + "%USERPROFILE%\desktop\sfc-report.txt" + Chr(34) + Environment.NewLine +
+                            "start " + Chr(34) + "System File Repair" + Chr(34) + " /B sfc /verifyonly>" + Chr(34) + "%USERPROFILE%\desktop\sfc-report.txt" + Chr(34), False)
+            Catch ex As Exception
+
+            End Try
         End If
     End Sub
 
@@ -117,4 +166,5 @@ Public Class RepairDialog
         UnLocked_Btn.Enabled = True
         UnLocked_Btn.Visible = True
     End Sub
+
 End Class

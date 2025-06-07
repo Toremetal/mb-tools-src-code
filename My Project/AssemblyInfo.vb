@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Windows Image Backup, Restore, Clone, and Create. O.S. Installation Management Application")>
 <Assembly: AssemblyCompany("™T©ReMeTaL")>
 <Assembly: AssemblyProduct("MB-Tools")>
-<Assembly: AssemblyCopyright("©2025 ™T©ReMeTaL")>
+<Assembly: AssemblyCopyright("Copyright: ©2025 ™T©ReMeTaL")>
 <Assembly: AssemblyTrademark("™T©ReMeTaL")>
 
 <Assembly: ComVisible(False)>
